@@ -2,10 +2,14 @@ from django.db import models
 
 # Create your models here.
 class Invoice(models.Model):
-    invoice_number = models.IntegerField(max_length=20)
+    invoice_number = models.CharField(max_length=20)
     pub_date = models.DateTimeField("date published")
     due_date = models.DateField("due date")
     client_name = models.CharField(max_length=100)
     client_email = models.EmailField(max_length=200)
     company_name = models.CharField(max_length=100)
     company_address = models.CharField(max_length=100)
+    total = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.number
