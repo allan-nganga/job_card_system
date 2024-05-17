@@ -37,6 +37,11 @@ def generate_invoice(request):
         return render(request, 'invoice/invoice_list.html', {'form': form})
     
 # invoice list view function
-def invoice_list(request):
+# def invoice_list(request):
+  #   invoices = Invoice.objects.all()
+  #   return render(request, 'invoices/invoice_list.html', {'invoices': invoices})
+
+# Dashboard function
+def dashboard(request):
     invoices = Invoice.objects.all()
-    return render(request, 'invoices/invoice_list.html', {'invoices': invoices})
+    return render(request, 'invoices/dashboard.html', {'invoices': invoices})

@@ -1,15 +1,21 @@
 from django.db import models
 
-# Create your models here.
+class Client(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    address = models.TextField()
+    company_name = models.CharField(max_length= 200)
+
+    def __str__(self):
+        return self.name
+
 class Invoice(models.Model):
-    invoice_number = models.CharField(max_length=20)
-    pub_date = models.DateTimeField("date published")
-    due_date = models.DateField("due date")
-    client_name = models.CharField(max_length=100)
-    client_email = models.EmailField(max_length=200)
-    company_name = models.CharField(max_length=100)
-    company_address = models.CharField(max_length=100)
+    customer = models.ForeignKey(Client, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    due_date = models.DateTimeField()
+    description = models.TextField(max_length=200)
+    paid = models.BooleanField(default=False)
     total = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.number
+        return f"Invoice {self.id} for {self.client}"

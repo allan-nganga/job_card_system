@@ -22,10 +22,12 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('login.urls', 'login'), 'login')),
+    path('', include(('invoice_generator.urls', 'invoice_generator'), 'invoice')),
     # path('', invoice.asview(), name='invoice')
     # path('invoice/', include(('invoice_generator.urls', 'invoice_generator'), 'invoice_generator')),
 ] + static(settings.STATIC_URL)
 
 urlpatterns += [
     path('', include('invoice_generator.urls')),
+    path('dashboard/', include('invoice_generator.urls')),
 ]

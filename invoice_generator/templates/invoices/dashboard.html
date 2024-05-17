@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Dashboard</title>
+</head>
+<body>
+    <h1>Invoice Dashboard</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Created At</th>
+                <th>Due Date</th>
+                <th>Paid</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.id }}</td>
+                <td>{{ invoice.customer.name }}</td>
+                <td>{{ invoice.created_at }}</td>
+                <td>{{ invoice.due_date }}</td>
+                <td>{{ invoice.paid }}</td>
+                <td>${{ invoice.total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

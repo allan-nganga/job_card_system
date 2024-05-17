@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    return render(request, 'home.html', {})
+    return render(request, 'admin/')
+# def home(request):
+  #   return render(request, 'home.html', {})
 
 def authView(request):
     if request.method == 'POST':
