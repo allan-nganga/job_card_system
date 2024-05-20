@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template.loader import get_template
 from weasyprint import HTML
@@ -26,15 +26,19 @@ def generate_invoice_pdf(request, invoice_id):
     return response
 
 # invoice generate function
-def generate_invoice(request):
+def create_invoice(request):
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('invoice_list')
+            invoice = form.save()
+            return redirect('invoice_detail', invoice_id=invoice.id)
         else:
-            form = InvoiceForm()
-        return render(request, 'invoice/invoice_list.html', {'form': form})
+            return render(request, 'invoices/create_invoice.html', {'form': form})
+
+    else:
+        # if the form is invalid, render the form again with validation errors
+        form = InvoiceForm()
+    return render(request, 'invoices/create_invoice.html', {'form': form})
     
 # invoice list view function
 # def invoice_list(request):
@@ -42,6 +46,11 @@ def generate_invoice(request):
   #   return render(request, 'invoices/invoice_list.html', {'invoices': invoices})
 
 # Dashboard function
-def dashboard(request):
-    invoices = Invoice.objects.all()
-    return render(request, 'invoices/dashboard.html', {'invoices': invoices})
+#def dashboard(request):
+ #   invoices = Invoice.objects.all()
+  #  return render(request, 'invoices/dashboard.html', {'invoices': invoices})
+
+
+def invoice_detail(request, invoice_id):
+    invoice = get_object_or_404(Invoice, pk=invoice_id)
+    return render(request, 'invoices/invoice.html', {'invoice': invoice})
