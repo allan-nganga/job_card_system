@@ -45,11 +45,6 @@ def create_invoice(request):
   #   Invoice = Invoice.objects.all()
   #   return render(request, 'Invoice/invoice_list.html', {'Invoice': Invoice})
 
-# Dashboard function
-def dashboard(request):
-    Invoice = Invoice.objects.all()
-    return render(request, 'invoice/dashboard.html', {'Invoice': Invoice})
-
 
 def invoice_detail(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)

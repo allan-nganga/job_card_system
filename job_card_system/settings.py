@@ -129,5 +129,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # To redirect user upon successful login
-LOGIN_REDIRECT_URL = '/invoices/create/'
+LOGIN_REDIRECT_URL = 'login:dashboard'
 LOGOUT_REDIRECT_URL = 'login:login'

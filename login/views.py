@@ -20,3 +20,7 @@ def authView(request):
     else:
         form = UserCreationForm()
     return render(request, "registration/signup.html", {"form":form})
+
+# Dashboard function
+def dashboard(request):
+    return render(request, 'invoice/dashboard.html')
