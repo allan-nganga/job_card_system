@@ -1,8 +1,8 @@
 from django.urls import include, path
-from .views import authView, home
+from .views import authView, home, LoginView
 
 urlpatterns = [
-    path("", home, name='home'),
+    path("", LoginView.as_view(), name='login'), # Root URL redirects to login
     path("signup/", authView, name='authView'),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
