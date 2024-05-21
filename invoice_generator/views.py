@@ -53,4 +53,4 @@ def dashboard(request):
 
 def invoice_detail(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
-    return render(request, 'invoice/invoice.html', {'invoice': invoice})
+    return render(request, 'invoice/invoice_template.html', {'invoice': invoice})

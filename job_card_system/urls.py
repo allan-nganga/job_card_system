@@ -23,6 +23,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('login.urls', 'login'), 'login')),
     path('invoices/', include(('invoice_generator.urls', 'invoice_generator'), 'invoice_generator')),
-    # path('', invoice.asview(), name='invoice')
-    # path('invoice/', include(('invoice_generator.urls', 'invoice_generator'), 'invoice_generator')),
 ] + static(settings.STATIC_URL)

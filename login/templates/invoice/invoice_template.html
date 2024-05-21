@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'invoice/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'invoice/style.css' %}">
 </head>
 <body>
     <div class="invoice-box">
-        <h1>INVOICE # 9283</h1>
+        <h1>INVOICE # {{ invoice.id }}</h1>
         <div class="company-info">
-            <img src="{% static 'invoice/creative-junk logo.jpg'%}"
+            <img src="{% static 'invoice/creative-junk logo.jpg'%}">
             <p><strong>Creative Junk Ltd</strong></p>
             <p>3rd Floor, College House</p>
             <p>Koinange Street / University Way</p>
@@ -19,17 +19,16 @@
         </div>
         <div class="invoice-to">
             <p><strong>Invoiced To</strong></p>
-            <p>Bandare Hotel</p>
-            <p>ATTN: Bandare Hotel</p>
-            <p>New Hargeisa Rd Number 1, Hargeisa, Somalia</p>
-            <p>Somalia</p>
+            <p>{{ invoice.company_name }}</p>
+            <p>ATTN: {{ invoice.client_name }}</p>
+            <p>{{ invoice.billing_address }}</p>
         </div>
         <div class="invoice-details">
-            <p><strong>INVOICE # 9283</strong></p>
+            <p><strong>INVOICE # {{ invoice.id }}</strong></p>
             <p>Status: <span class="status unpaid">Unpaid</span></p>
-            <p>Invoice Date: 17/03/2023</p>
-            <p>Due Date: 16/04/2023</p>
-            <p>Amount Due: <strong>Ksh 7,500.00</strong></p>
+            <p>Invoice Date: {{ invoice.created_at|date:"DATE_FORMAT" }}</p>
+            <p>Due Date: {{ invoice.due_date|date:"DATE_FORMAT" }}</p>
+            <p>Amount Due: <strong>Ksh {{ invoice.total_cost }}</strong></p>
         </div>
         <table>
             <thead>
@@ -42,16 +41,16 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Web hosting renewal for 2023-2024</td>
-                    <td>Ksh 7,500.00</td>
-                    <td>1</td>
-                    <td>Ksh 7,500.00</td>
+                    <td>{{ invoice.item_description }}</td>
+                    <td>Ksh {{ invoice.item_price }}</td>
+                    <td>{{ invoice.item_quantity }}</td>
+                    <td>Ksh {{ invoice.total_cost }}</td>
                 </tr>
             </tbody>
         </table>
         <div class="totals">
             <p>Sub Total: <strong>Ksh 7,500.00</strong></p>
-            <p>Grand Total: <strong>Ksh 7,500.00</strong></p>
+            <p>Grand Total: <strong>Ksh {{ invoice.total_cost }}</strong></p>
         </div>
         <div class="terms">
             <p><strong>TERMS</strong></p>
