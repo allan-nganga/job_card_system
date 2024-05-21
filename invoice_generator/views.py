@@ -41,9 +41,9 @@ def create_invoice(request):
     return render(request, 'invoice/create_invoice.html', {'form': form})
     
 # invoice list view function
-# def invoice_list(request):
-  #   Invoice = Invoice.objects.all()
-  #   return render(request, 'Invoice/invoice_list.html', {'Invoice': Invoice})
+def invoice_list(request):
+    invoice = Invoice.objects.all()
+    return render(request, 'invoice/invoice_list.html', {'invoice': invoice})
 
 
 def invoice_detail(request, invoice_id):

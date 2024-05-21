@@ -7,9 +7,10 @@ from django.contrib.auth.views import LoginView
 class LoginView(LoginView):
     template_name = 'registration/login.html'
 
+# Dashboard function
 @login_required
-def home(request):
-    return render(request, 'admin/')
+def dashboard(request):
+    return render(request, 'invoice/dashboard.html')
 
 def authView(request):
     if request.method == 'POST':
@@ -20,7 +21,3 @@ def authView(request):
     else:
         form = UserCreationForm()
     return render(request, "registration/signup.html", {"form":form})
-
-# Dashboard function
-def dashboard(request):
-    return render(request, 'invoice/dashboard.html')
