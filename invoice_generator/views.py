@@ -15,7 +15,7 @@ def generate_invoice_pdf(request, invoice_id):
 
     # Render the HTML template with invoice data
     # template = get_template('invoice/invoice_template.html')
-    html_string = render_to_string('invoices/invoice_template.html', {'invoice': invoice})
+    html_string = render_to_string('Invoice/invoice_template.html', {'invoice': invoice})
 
     # Create a PDF file using WeasyPrint
     pdf_file = HTML(string=html_string).write_pdf()
@@ -31,26 +31,26 @@ def create_invoice(request):
         form = InvoiceForm(request.POST)
         if form.is_valid():
             invoice = form.save()
-            return redirect('invoice_detail', invoice_id=invoice.id)
+            return redirect('invoice_generator:invoice_detail', invoice_id=invoice.id)
         else:
-            return render(request, 'invoices/create_invoice.html', {'form': form})
+            return render(request, 'invoice/create_invoice.html', {'form': form})
 
     else:
         # if the form is invalid, render the form again with validation errors
         form = InvoiceForm()
-    return render(request, 'invoices/create_invoice.html', {'form': form})
+    return render(request, 'invoice/create_invoice.html', {'form': form})
     
 # invoice list view function
 # def invoice_list(request):
-  #   invoices = Invoice.objects.all()
-  #   return render(request, 'invoices/invoice_list.html', {'invoices': invoices})
+  #   Invoice = Invoice.objects.all()
+  #   return render(request, 'Invoice/invoice_list.html', {'Invoice': Invoice})
 
 # Dashboard function
-#def dashboard(request):
- #   invoices = Invoice.objects.all()
-  #  return render(request, 'invoices/dashboard.html', {'invoices': invoices})
+def dashboard(request):
+    Invoice = Invoice.objects.all()
+    return render(request, 'invoice/dashboard.html', {'Invoice': Invoice})
 
 
 def invoice_detail(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
-    return render(request, 'invoices/invoice.html', {'invoice': invoice})
+    return render(request, 'invoice/invoice.html', {'invoice': invoice})

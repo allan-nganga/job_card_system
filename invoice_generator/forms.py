@@ -1,5 +1,5 @@
 from django import forms
-from .models import Invoice, Client
+from .models import Invoice
 
 class InvoiceForm(forms.ModelForm):
     class Meta:
@@ -7,7 +7,7 @@ class InvoiceForm(forms.ModelForm):
         fields = [
             'client_name',
             'company_name',
-            'company_address',
+            'billing_address',
             'item_description',
             'item_quantity',
             'item_price',  
@@ -15,6 +15,7 @@ class InvoiceForm(forms.ModelForm):
             'paid'
         ]
 
+"""
 class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
@@ -24,3 +25,4 @@ class ClientForm(forms.ModelForm):
             'address', 
             'company_name'
             ]
+            """

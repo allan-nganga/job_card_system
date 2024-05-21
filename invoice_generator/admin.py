@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Invoice, Client
+from .models import Invoice
 
 # Register your models here.
 admin.site.register(Invoice)
-admin.site.register(Client)
+# admin.site.register(Client)
