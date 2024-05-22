@@ -42,14 +42,20 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'invoice_generator:create_invoice' %}">
-                            <span data-feather="file"></span>
+                            <span data-feather="file-plus"></span>
                             Create Invoice
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'invoice_generator:invoice_list' %}">
-                            <span data-feather="invoice"></span>
+                            <span data-feather="list"></span>
                             Invoice List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'invoice_generator:invoice_list' %}">
+                            <span data-feather="edit"></span>
+                            Edit Invoice
                         </a>
                     </li>
                     <!-- Add more navigation items here -->
