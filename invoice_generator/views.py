@@ -40,12 +40,15 @@ def create_invoice(request):
         form = InvoiceForm()
     return render(request, 'invoice/create_invoice.html', {'form': form})
     
-# invoice list view function
+# Fetch and display invoices
 def invoice_list(request):
     invoice = Invoice.objects.all()
     return render(request, 'invoice/invoice_list.html', {'invoice': invoice})
 
-
+# Display contents of the requested invoice
 def invoice_detail(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
     return render(request, 'invoice/invoice_template.html', {'invoice': invoice})
+
+def home(request):
+    return render(request, 'invoice/dashboard.html')

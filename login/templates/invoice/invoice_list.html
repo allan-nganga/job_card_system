@@ -1,40 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'invoice/dash.css' %}">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Invoice List</h1>
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Invoice Number</th>
-                    <th>Client</th>
-                    <th>Address</th>
-                    <th>Invoice Date</th>
-                    <th>Due Date</th>
-                    <th>Amount Due</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for invoice in invoice %}
-                <tr>
-                    <td>{{ invoice.id }}</td>
-                    <td>{{ invoice.client_name }}</td>
-                    <td>{{ invoice.billing_address }}</td>
-                    <td>{{ invoice.created_at }}</td>
-                    <td>{{ invoice.due_date }}</td>
-                    <td>{{ invoice.total_cost }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+{% extends 'invoice/index.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Invoice List</h1>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Invoice Number</th>
+                <th>Client</th>
+                <th>Address</th>
+                <th>Invoice Date</th>
+                <th>Due Date</th>
+                <th>Amount Due</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoice %}
+            <tr>
+                <td>{{ invoice.id }}</td>
+                <td>{{ invoice.client_name }}</td>
+                <td>{{ invoice.billing_address }}</td>
+                <td>{{ invoice.created_at }}</td>
+                <td>{{ invoice.due_date }}</td>
+                <td>{{ invoice.total_cost }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
