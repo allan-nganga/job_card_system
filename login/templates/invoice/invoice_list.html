@@ -1,8 +1,9 @@
 {% extends 'invoice/index.html' %}
 
+{% load humanize %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Invoice List</h1>
+    <h1 class="mb-4">{{page_title}}</h1>
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
@@ -22,7 +23,7 @@
                 <td>{{ invoice.billing_address }}</td>
                 <td>{{ invoice.created_at|date:"DATE_FORMAT" }}</td>
                 <td>{{ invoice.due_date|date:"DATE_FORMAT" }}</td>
-                <td>{{ invoice.total_cost }}</td>
+                <td>{{ invoice.total_cost | floatformat:2|intcomma }}</td>
             </tr>
             {% endfor %}
         </tbody>

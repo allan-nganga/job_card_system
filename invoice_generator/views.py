@@ -9,9 +9,9 @@ from .forms import InvoiceForm
 def invoice(request):
     return render(request, 'invoice_template.html', {})
 
-def generate_invoice_pdf(request, invoice_id):
+def generate_invoice_pdf(request, id):
     # Retrieve the invoice object
-    invoice = Invoice.objects.get(id=invoice_id)
+    invoice = Invoice.objects.get(id=id)
 
     # Render the HTML template with invoice data
     # template = get_template('invoice/invoice_template.html')
@@ -22,7 +22,7 @@ def generate_invoice_pdf(request, invoice_id):
 
     # Create a HTTP response with PDF as content type
     response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = f'filename=invoice_{invoice.invoice_number}.pdf'
+    response['Content-Disposition'] = f'filename=invoice_{invoice.id}.pdf'
     return response
 
 # invoice generate function
@@ -43,9 +43,9 @@ def create_invoice(request):
     
 # Fetch and display invoices
 def invoice_list(request):
-    context = {'page_title': 'Invoice List'}
+    # context = {'page_title': 'Invoice List'}
     invoice = Invoice.objects.all()
-    return render(request, 'invoice/invoice_list.html', {'invoice': invoice}, context)
+    return render(request, 'invoice/invoice_list.html', {'invoice': invoice})
 
 # Display contents of the requested invoice
 def invoice_detail(request, invoice_id):

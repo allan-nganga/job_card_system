@@ -1,3 +1,4 @@
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +29,7 @@
             <p>Status: <span class="status unpaid">Unpaid</span></p>
             <p>Invoice Date: {{ invoice.created_at|date:"DATE_FORMAT" }}</p>
             <p>Due Date: {{ invoice.due_date|date:"DATE_FORMAT" }}</p>
-            <p>Amount Due: <strong>Ksh {{ invoice.total_cost }}</strong></p>
+            <p>Amount Due: <strong>Ksh {{ invoice.total_cost | floatformat:2|intcomma }}</strong></p>
         </div>
         <table>
             <thead>
@@ -42,15 +43,14 @@
             <tbody>
                 <tr>
                     <td>{{ invoice.item_description }}</td>
-                    <td>Ksh {{ invoice.item_price }}</td>
+                    <td>Ksh {{ invoice.item_price | floatformat:2|intcomma }}</td>  <!-- To display figures in currency format -->
                     <td>{{ invoice.item_quantity }}</td>
-                    <td>Ksh {{ invoice.total_cost }}</td>
+                    <td>Ksh {{ invoice.total_cost | floatformat:2|intcomma }}</td>
                 </tr>
             </tbody>
         </table>
         <div class="totals">
-            <p>Sub Total: <strong>Ksh 7,500.00</strong></p>
-            <p>Grand Total: <strong>Ksh {{ invoice.total_cost }}</strong></p>
+            <p>Grand Total: <strong>Ksh {{ invoice.total_cost | floatformat:2|intcomma }}</strong></p>
         </div>
         <div class="terms">
             <p><strong>TERMS</strong></p>
