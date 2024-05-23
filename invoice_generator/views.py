@@ -27,13 +27,14 @@ def generate_invoice_pdf(request, invoice_id):
 
 # invoice generate function
 def create_invoice(request):
+    context = {'page_title':'Create Invoice'}
     if request.method == 'POST':
         form = InvoiceForm(request.POST)
         if form.is_valid():
             invoice = form.save()
             return redirect('invoice_generator:invoice_detail', invoice_id=invoice.id)
         else:
-            return render(request, 'invoice/create_invoice.html', {'form': form})
+            return render(request, 'invoice/create_invoice.html', {'form': form}, context)
 
     else:
         # if the form is invalid, render the form again with validation errors
@@ -42,8 +43,9 @@ def create_invoice(request):
     
 # Fetch and display invoices
 def invoice_list(request):
+    context = {'page_title': 'Invoice List'}
     invoice = Invoice.objects.all()
-    return render(request, 'invoice/invoice_list.html', {'invoice': invoice})
+    return render(request, 'invoice/invoice_list.html', {'invoice': invoice}, context)
 
 # Display contents of the requested invoice
 def invoice_detail(request, invoice_id):
@@ -51,4 +53,5 @@ def invoice_detail(request, invoice_id):
     return render(request, 'invoice/invoice_template.html', {'invoice': invoice})
 
 def home(request):
-    return render(request, 'invoice/dashboard.html')
+    context = {'page_title':'Home'}
+    return render(request, 'invoice/dashboard.html', context)

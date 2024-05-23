@@ -1,69 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>{{ page_title }}</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'dashboard/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'invoice/dash.css' %}">
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <!--
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'login:home' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'invoice_generator:invoice_list' %}">Invoice List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'invoice_generator:create_invoice' %}">Create Invoice</a>
-                </li>
-            </ul>
-        </div>
-        -->
-    </nav>
     <div class="container-fluid">
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'login:home' %}">
-                            <span data-feather="home"></span>
-                            Home <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'invoice_generator:create_invoice' %}">
-                            <span data-feather="file-plus"></span>
-                            Create Invoice
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'invoice_generator:invoice_list' %}">
-                            <span data-feather="list"></span>
-                            Invoice List
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'invoice_generator:invoice_list' %}">
-                            <span data-feather="edit"></span>
-                            Edit Invoice
-                        </a>
-                    </li>
-                    <!-- Add more navigation items here -->
-                </ul>
-            </div>
-        </nav>
-        <!-- Page content goes here -->
-        {% block content %}{% endblock %}
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link {% if page_title == 'Home' %}active{% endif %}"
+                                href="{% url 'login:home' %}">
+                                <span data-feather="home"></span>
+                                Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if page_title == 'Create Invoice' %}active{% endif %}"
+                                href="{% url 'invoice_generator:create_invoice' %}">
+                                <span data-feather="file-plus"></span>
+                                Create Invoice
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if page_title == 'Invoice List' %}active{% endif %}"
+                                href="{% url 'invoice_generator:invoice_list' %}">
+                                <span data-feather="list"></span>
+                                Invoice List
+                            </a>
+                        </li>
+                        <!-- Edit this to point to edit invoice -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'invoice_generator:invoice_list' %}">
+                                <span data-feather="edit"></span>
+                                Edit Invoice
+                            </a>
+                        </li>
+                        <!-- Add more navigation items here -->
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">{{ page_title }}</h1>
+                </div>
+                {% block content %}
+                <!-- Page content goes here -->
+                {% endblock %}
+            </main>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
