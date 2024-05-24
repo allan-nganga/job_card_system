@@ -1,17 +1,27 @@
-body {
+@page {
+    size: A4;
+    margin: 20mm;
+}
+html, body {
     font-family: 'Arial', sans-serif;
     background-color: #f9f9f9;
     margin: 0;
     padding: 20px;
+    height: 297mm;
+    width: 210mm;
 }
 
 .invoice-box {
     background-color: #fff;
-    padding: 20px;
+    padding: 30px;
     margin: auto;
     border: 1px solid #eee;
     max-width: 800px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    font-size: 16px;
+    line-height: 24px;
+    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .invoice-box h1 {
@@ -55,6 +65,8 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    line-height: inherit;
+    text-align: left;
 }
 
 table th,
@@ -62,6 +74,7 @@ table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    vertical-align: top;
 }
 
 table th {

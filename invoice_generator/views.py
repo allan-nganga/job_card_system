@@ -1,6 +1,7 @@
+import html
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from django.template.loader import get_template
+from django.template.loader import render_to_string
 from weasyprint import HTML
 from .models import Invoice
 from .forms import InvoiceForm
@@ -9,20 +10,41 @@ from .forms import InvoiceForm
 def invoice(request):
     return render(request, 'invoice_template.html', {})
 
-def generate_invoice_pdf(request, id):
+
+# Generate PDF
+def generate_invoice_pdf(request, invoice_id):
     # Retrieve the invoice object
-    invoice = Invoice.objects.get(id=id)
+    try:
+        invoice = Invoice.objects.get(id=invoice_id)
+    except Invoice.DoesNotExist:
+        return HttpResponse("Invoice not found!", status=404)
+
+    # Prepare context data for the template
+    context = {
+        'invoice': {
+            'number': invoice.id,
+            'client_name': invoice.client_name,
+            'company_name': invoice.company_name,
+            'billing_address': invoice.billing_address,
+            'item_description': invoice.item_description,
+            'item_quantity': invoice.item_quantity,
+            'item_price': invoice.item_price,  
+            'due_date': invoice.due_date, 
+        }
+    }
 
     # Render the HTML template with invoice data
     # template = get_template('invoice/invoice_template.html')
-    html_string = render_to_string('Invoice/invoice_template.html', {'invoice': invoice})
+    html_string = render_to_string('invoice/invoice_template.html', context)
 
     # Create a PDF file using WeasyPrint
-    pdf_file = HTML(string=html_string).write_pdf()
+    # pdf_file = weasyprint.HTML(string=html_string).write_pdf(stylesheets=[weasyprint.css('login/static/invoice/style.css')])
+    html = HTML(string =html_string)
+    pdf = html.write_pdf()
 
     # Create a HTTP response with PDF as content type
-    response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = f'filename=invoice_{invoice.id}.pdf'
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="invoice_{invoice.id}.pdf"'
     return response
 
 # invoice generate function

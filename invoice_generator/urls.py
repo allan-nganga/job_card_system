@@ -9,5 +9,5 @@ urlpatterns = [
     path('invoices/', views.invoice_list, name='invoice_list'),
     path('home/', views.home, name='home'),
     path('invoice/<int:invoice_id>/', views.invoice_detail, name='invoice_detail'),
-    path('invoice/<int:invoice_id>/pdf/', generate_invoice_pdf, name='generate_pdf_invoice'),
+    path('invoice/<int:invoice_id>/pdf/', generate_invoice_pdf, name='generate_invoice_pdf'),
 ]
