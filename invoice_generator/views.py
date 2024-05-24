@@ -7,9 +7,31 @@ from .models import Invoice
 from .forms import InvoiceForm
 
 # Create your views here.
-def invoice(request):
-    return render(request, 'invoice_template.html', {})
 
+# View invoice function
+def view_invoice(request,invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    return render(request, 'invoice/invoice_template.html', {'invoice': invoice})
+
+# Edit invoice function
+def edit_invoice(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST, instance=invoice)
+        if form.is_valid():
+            form.save()
+            return redirect('view_invoice', invoice_id=invoice.id)
+    else:
+        form = InvoiceForm(instance=invoice)
+    return render(request, 'edit_invoice.html', {'form': form, 'invoice':invoice})
+
+# Delete invoice function
+def delete_invoice(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    if request.method == 'POST':
+        invoice.delete()
+        return redirect('invoice_list')
+    return render(request, 'delete_invoice.html', {'invoice': invoice})
 
 # Generate PDF
 def generate_invoice_pdf(request, invoice_id):
