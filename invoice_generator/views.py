@@ -20,10 +20,10 @@ def edit_invoice(request, invoice_id):
         form = InvoiceForm(request.POST, instance=invoice)
         if form.is_valid():
             form.save()
-            return redirect('view_invoice', invoice_id=invoice.id)
+            return redirect('invoice_detail', invoice_id=invoice.id)
     else:
         form = InvoiceForm(instance=invoice)
-    return render(request, 'edit_invoice.html', {'form': form, 'invoice':invoice})
+    return render(request, 'invoice/edit_invoice.html', {'form': form, 'invoice':invoice})
 
 # Delete invoice function
 def delete_invoice(request, invoice_id):
@@ -31,7 +31,7 @@ def delete_invoice(request, invoice_id):
     if request.method == 'POST':
         invoice.delete()
         return redirect('invoice_list')
-    return render(request, 'delete_invoice.html', {'invoice': invoice})
+    return render(request, 'invoice/delete_invoice.html', {'invoice': invoice})
 
 # Generate PDF
 def generate_invoice_pdf(request, invoice_id):

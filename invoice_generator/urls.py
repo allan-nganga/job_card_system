@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import generate_invoice_pdf, view_invoice, edit_invoice, delete_invoice
+from .views import generate_invoice_pdf, edit_invoice, delete_invoice, view_invoice
 from . import views
 
 app_name = 'invoice_generator'
