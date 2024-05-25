@@ -99,3 +99,17 @@ def invoice_detail(request, invoice_id):
 def home(request):
     context = {'page_title':'Home'}
     return render(request, 'invoice/dashboard.html', context)
+
+# Change invoice payment status to paid
+def mark_as_paid(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    invoice.paid = True
+    invoice.save()
+    return redirect('invoice_detail', invoice_id=invoice.id)
+
+# Change invoice payment status to unpaid
+def mark_as_unpaid(request, invoice_id):
+    invoice = get_object_or_404(Invoice, id=invoice_id)
+    invoice.paid = False
+    invoice.save()
+    return redirect('invoice_detail', invoice_id=invoice.id)
