@@ -20,7 +20,7 @@ def edit_invoice(request, invoice_id):
         form = InvoiceForm(request.POST, instance=invoice)
         if form.is_valid():
             form.save()
-            return redirect('invoice_detail', invoice_id=invoice.id)
+            return redirect('invoice_generator:invoice_detail', invoice_id=invoice.id)
     else:
         form = InvoiceForm(instance=invoice)
     return render(request, 'invoice/edit_invoice.html', {'form': form, 'invoice':invoice})
@@ -30,7 +30,7 @@ def delete_invoice(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
     if request.method == 'POST':
         invoice.delete()
-        return redirect('invoice_list')
+        return redirect('invoice_generator:invoice_list')
     return render(request, 'invoice/delete_invoice.html', {'invoice': invoice})
 
 # Generate PDF
@@ -105,11 +105,11 @@ def mark_as_paid(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
     invoice.paid = True
     invoice.save()
-    return redirect('invoice_detail', invoice_id=invoice.id)
+    return redirect('invoice_generator:invoice_detail', invoice_id=invoice.id)
 
 # Change invoice payment status to unpaid
 def mark_as_unpaid(request, invoice_id):
     invoice = get_object_or_404(Invoice, id=invoice_id)
     invoice.paid = False
     invoice.save()
-    return redirect('invoice_detail', invoice_id=invoice.id)
+    return redirect('invoice_generator:invoice_detail', invoice_id=invoice.id)
